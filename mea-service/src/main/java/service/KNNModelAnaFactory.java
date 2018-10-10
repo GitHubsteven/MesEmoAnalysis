@@ -1,19 +1,18 @@
 package service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import org.apache.commons.collections.CollectionUtils;
-
 import config.Properties;
 import domain.BuildModelParameter;
 import domain.MessageBean;
 import domain.PRFBean;
 import domain.TypeBean;
+import org.apache.commons.collections4.CollectionUtils;
 import utils.KNN;
 import utils.SettingUtils;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 

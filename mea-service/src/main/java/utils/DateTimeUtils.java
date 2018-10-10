@@ -1,9 +1,8 @@
 package utils;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.ibm.icu.text.SimpleDateFormat;
-import com.ibm.icu.util.Calendar;
 
 public class DateTimeUtils {
 	public static String  DEFAULT_FORMAT ="yyyyMMdd HHmmss";

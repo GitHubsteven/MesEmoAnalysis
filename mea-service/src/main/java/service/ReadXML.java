@@ -1,56 +1,47 @@
 package service;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
+import config.Properties;
+import domain.MessageBean;
 import org.apache.commons.lang3.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import api.TextPreProcess;
-import config.Properties;
-import domain.DealParticipleResultBean;
-import domain.MessageBean;
-import utils.SettingUtils;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.File;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by rongbin.xie on 2017/7/12.
  */
 public class ReadXML {
-	
-	/**
-	 * 获取messages数据
-	 * 
-	 * @param messageXmlPath路径
-	 * @return
-	 */
+
+    /**
+     * 获取messages数据
+     *
+     * @param messageXmlPath 路径
+     * @return
+     */
     public static List<MessageBean> getMessages(Path messageXmlPath) {
         String MESSAGE = "message";
         String TEXT = "text";
-        String SOURCE ="source";
+        String SOURCE = "source";
         String USER_PROFILE = "userProfile";
         String FREQUENCY = "frequency";
-        String SRCNUMBER ="srcNumber";
-        String DESTINATION= "destination";
+        String SRCNUMBER = "srcNumber";
+        String DESTINATION = "destination";
         String DESTNUMBER = "destNumber";
         String xmlPath = messageXmlPath.toString();
-        
-        List<String> srcNumPathOfMessage = new ArrayList<>();
-        srcNumPathOfMessage.addAll(Arrays.asList(SOURCE,SRCNUMBER));
-        
-        List<String> destNumPathOfMessage = new ArrayList<>();
-        destNumPathOfMessage.addAll(Arrays.asList(DESTINATION,DESTNUMBER));
-        
+
+        List<String> srcNumPathOfMessage = new ArrayList<>(Arrays.asList(SOURCE, SRCNUMBER));
+
+        List<String> destNumPathOfMessage = new ArrayList<>(Arrays.asList(DESTINATION, DESTNUMBER));
+
         List<String> frePathOfMessage = new ArrayList<>();
         frePathOfMessage.add(SOURCE);
         frePathOfMessage.add(USER_PROFILE);
@@ -82,35 +73,35 @@ public class ReadXML {
                 if (message.getNodeType() == Node.ELEMENT_NODE) {
                     Element messageEle = (Element) message;
                     String id = messageEle.getAttribute("id");
-                    if(!(null == id && "".equals(id))){
-                    	messageBean.setId(id);
+                    if (!StringUtils.isEmpty(id)) {
+                        messageBean.setId(id);
                     }
                     NodeList textList = messageEle.getElementsByTagName(TEXT);
-                    if(textList.getLength()>0){
+                    if (textList.getLength() > 0) {
                         String text = textList.item(0).getTextContent();
                         messageBean.setText(text);
                     }
-                    Element frequency =  findTargetElement(messageEle,frePathOfMessage);
-                    if(null != frequency){
+                    Element frequency = findTargetElement(messageEle, frePathOfMessage);
+                    if (null != frequency) {
                         String frequencyContext = frequency.getTextContent();
                         Double value = Properties.FREQUENCY_VALUE_MAP.get(frequencyContext.toLowerCase().trim());
-                        if(value !=null){
-                        	   messageBean.setFrequency(value);
+                        if (value != null) {
+                            messageBean.setFrequency(value);
                         }
                     }
-                    
-                    Element srcNumberEle =  findTargetElement(messageEle,srcNumPathOfMessage);
-                    if(null != frequency){
+
+                    Element srcNumberEle = findTargetElement(messageEle, srcNumPathOfMessage);
+                    if (null != frequency) {
                         String srcNumber = srcNumberEle.getTextContent();
-                        if(StringUtils.isNoneEmpty(srcNumber)){
-                        	 messageBean.setSrcNumber(srcNumber);
+                        if (!StringUtils.isEmpty(srcNumber)) {
+                            messageBean.setSrcNumber(srcNumber);
                         }
                     }
-                    Element destNumberEle =  findTargetElement(messageEle,destNumPathOfMessage);
-                    if(null != frequency){
+                    Element destNumberEle = findTargetElement(messageEle, destNumPathOfMessage);
+                    if (null != frequency) {
                         String destNumber = destNumberEle.getTextContent();
-                        if(StringUtils.isNoneEmpty(destNumber)){
-                        	 messageBean.setDesNumber(destNumber);
+                        if (!StringUtils.isEmpty(destNumber)) {
+                            messageBean.setDesNumber(destNumber);
                         }
                     }
                 }
@@ -120,13 +111,13 @@ public class ReadXML {
             e.printStackTrace();
         }
         return messages;
-        
+
     }
 
     /**
      * 通过根节点，递归找到目标节点
      *
-     * @param root root 节点
+     * @param root              root 节点
      * @param targetElementPath 目标子节点和root借点的路径，不包含root子节点
      * @return 目标节点
      */

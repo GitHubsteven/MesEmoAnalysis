@@ -11,19 +11,19 @@ import config.Properties;
 
 public class TextPreProcess {
 	
-	public static void main(String[] args) {
-		String text    = "1 老師,媽咪話想買盒月餅比你,你要傳統定冰皮?";
-		try {
-			System.out.println(participleSentence(text));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		String test ="";
-		System.out.println(test.trim());
-		
-		
-	}
+//	public static void main(String[] args) {
+//		String text    = "1 老師,媽咪話想買盒月餅比你,你要傳統定冰皮?";
+//		try {
+//			System.out.println(participleSentence(text));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		String test ="";
+//		System.out.println(test.trim());
+//
+//
+//	}
 	
     public static String participleSentence(String context) throws IOException {
         String api_key = Properties.ApiParam.API_KEY;
