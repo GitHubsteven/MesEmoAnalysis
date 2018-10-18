@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <properties resource="properties/MeaDaoConfig.properties"/>
+
+    <!--指定特定数据库的jdbc驱动jar包的位置 -->
+    <classPathEntry location="${spring.datasource.driver-location}"/>
+
+    <context id="default" targetRuntime="MyBatis3">
+        <jdbcConnection driverClass="${spring.datasource.driver-class-name}"
+                        connectionURL="${spring.datasource.url}"
+                        userId="${spring.datasource.username}"
+                        password="${spring.datasource.password}">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="${package.model.root}" targetProject="${project.model.root}">
+            <property name="enableSubPackages" value="true"/>
+            <!-- 给Model添加一个父类 -->
+            <property name="rootClass" value="com.mea.bean.model.com.BaseModel"/>
+            <!-- 是否对类CHAR类型的列的数据进行trim操作 -->
+            <property name="trimStrings" value="true"/>
+
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="${package.mapper.root}" targetProject="${project.mapper.root}">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="${package.dao.root}" targetProject="${project.dao.root}">
+            <property name="enableSubPackages" value="true"/>
+
+            <property name="exampleMethodVisibility" value="public"/>
+
+            <!--方法名计数器Important note: this property is ignored if the target runtime is MyBatis3. -->
+            <property name="methodNameCalculator" value=""/>
+            <!--为生成的接口添加父接口-->
+            <property name="rootInterface" value="${base.dao.root}"/>
+        </javaClientGenerator>
+
+        <table schema="mes_emo_ana" tableName="account" domainObjectName="AccountModel"
+               enableCountByExample="${table.enableCountByExample}"
+               enableUpdateByExample="${table.enableUpdateByExample}"
+               enableDeleteByExample="${table.enableDeleteByExample}"
+               enableSelectByExample="${table.enableSelectByExample}"
+               selectByExampleQueryId="${table.selectByExampleQueryId}">
+            <property name="useActualColumnNames" value="true"/>
+            <generatedKey column="id" sqlStatement="DB2" identity="true"/>
+
+        </table>
+
+    </context>
+</generatorConfiguration>
