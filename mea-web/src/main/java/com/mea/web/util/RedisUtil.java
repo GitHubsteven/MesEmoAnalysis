@@ -20,13 +20,13 @@ import java.util.Set;
 @Component
 public class RedisUtil {
     @Resource
-    protected HashOperations<String, String, Object> hashOperations;
+    private HashOperations<String, String, Object> hashOperations;
 
     @Resource
-    protected RedisTemplate<String, Object> redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
     @Resource
-    protected ValueOperations<String, Object> valueOperations;
+    private ValueOperations<String, Object> valueOperations;
 
     @Resource
     private ListOperations<String, Object> listOperations;

@@ -14,8 +14,8 @@
         <module>mea-util</module>
         <module>mea-web</module>
         <module>mea-bean</module>
-        <module>common</module>
         <module>mea-dao</module>
+        <module>mea-common</module>
     </modules>
 
     <properties>
